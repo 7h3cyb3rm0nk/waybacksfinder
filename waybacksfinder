@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+get_urls() {
+curl http://web.archive.org/cdx/search/cdx?url=$1\&output=json\&fl=original\&collapse=urlkey 
+
+}
+
+tidy_up() {
+sed 's/"//g; s/\[//g; s/\]//g; s/,/\n/g; 1d'
+}
+
+get_urls $1 | tidy_up
+
